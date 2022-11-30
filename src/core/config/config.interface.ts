@@ -14,4 +14,6 @@ export interface ConfigData {
   logLevel: string;
 
   gatekeeperServiceUrl: string;
+
+  mysql: any;
 }

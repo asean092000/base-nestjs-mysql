@@ -1,73 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Enviroment
+# Set up 
+cd root folder<br/>
+# coppy file .env.example to .env
+cp -b .env.example .env
+# Start project
+* To start our app, write the following command in your terminal<br/>
+docker-compose up dev<br/>
+* This will start it in development mode<br/>
+docker-compose up prod<br/>
+* This will start it in development mode<br/>
+# docker ssh into node container
+docker ps<br/>
+docker exec -it mycontainer sh ##for alpine<br/>
+# Feature modules
+  * run npm install -g @nestjs/cli
+  * To create a module using the CLI, simply execute the <br/>
+  $ nest g module cats command. <br/>
+  * To create a controller using the CLI, simply execute the <br/>
+  $ nest g controller cats command.<br/>
+  * To create a service using the CLI, simply execute the <br/>
+  $ nest g service cats command.<br/>
+# Do a Clean Restart of a Docker Instance
+  * Stop the container(s) using the following command:<br/>
+    docker-compose down<br/>
+    
+  * To delete all the images:<br/>
+    docker rmi -f $(docker images -aq)<br/>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  * Delete all containers using the following command:<br/>
+    docker rm -f $(docker ps -a -q)<br/>
 
-## Description
+  * Delete all volumes using the following command:<br/>
+    docker volume rm $(docker volume ls -q)<br/>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+  * Use this to delete everything:<br/>
+    docker system prune -a --volumes
 
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+  * Restart the containers using the following command:<br/>
+    docker-compose up dev<br/>
+#  How do I discard unstaged changes in Git?<br/>
+git stash save --keep-index --include-untracked<br/>
+# Nestjs Error: Cannot find module './app.controller'<br/>
+Run:<br/>
+npm run prebuild<br/>
+or<br/>
+rimraf dist<br/>
+or<br/>
+rm -rf dist<br/>
