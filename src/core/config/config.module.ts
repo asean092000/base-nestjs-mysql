@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from './config.service';
+import { ConfigSystemService } from './config.service';
 
 const configFactory = {
-  provide: ConfigService,
+  provide: ConfigSystemService,
   useFactory: () => {
-    const config = new ConfigService();
+    const config = new ConfigSystemService();
     config.lofusingDotEnv();
     return config;
   },
@@ -16,4 +16,4 @@ const configFactory = {
   providers: [configFactory],
   exports: [configFactory],
 })
-export class ConfigModule {}
+export class ConfigSystemModule {}

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { MESSAGE } from 'triple-beam';
 import * as winston from 'winston';
 
-import { ConfigService } from '../config/config.service';
+import { ConfigSystemService } from '../config/config.service';
 import { isLogLevel, LogLevel } from './loglevel';
 
 const formatter = winston.format((info) => {
@@ -29,7 +29,7 @@ const passthrough = winston.format((info) => {
 export class Logger implements LoggerService {
   private logger: winston.Logger;
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigSystemService) {
     this.logger = winston.createLogger({
       level: configService.get().logLevel,
       format: formatter(),
