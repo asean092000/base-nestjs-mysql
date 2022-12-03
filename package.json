@@ -91,12 +91,9 @@
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "src/**/*.{html,ts,scss}": [
+    "src/**/*.{ts,js}": [
       "yarn prettier:fix",
       "yarn lint"
-    ],
-    "src/**/*.ts": [
-      "eslint --fix"
     ]
   },
   "husky": {
