@@ -5,10 +5,9 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
     "prettier",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  plugins: ["prettier", "@typescript-eslint", "jest"],
+  plugins: ["prettier", "jest", "import"],
   env: {
     browser: true,
     es6: true,
@@ -18,6 +17,7 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    "react/jsx-filename-extension": [0]
   }
 }

@@ -30,6 +30,7 @@ export class ConfigSystemService {
         env.GATEKEEPER_SERVICE_URL || DEFAULT_CONFIG.gatekeeperServiceUrl,
     };
   }
+
   public get(): Readonly<ConfigData> {
     return this.config;
   }
