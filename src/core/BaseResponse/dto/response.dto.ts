@@ -1,4 +1,4 @@
-import { STATUSCODE } from '../../constants/statusCode';
+import { STATUSCODE } from "../../constants/statusCode";
 
 export class BaseResponse {
   code: STATUSCODE | number;
@@ -12,5 +12,4 @@ export class BaseResponse {
   }
 }
 
-export class BaseErrorResponse extends BaseResponse{
-}
+export class BaseErrorResponse extends BaseResponse {}

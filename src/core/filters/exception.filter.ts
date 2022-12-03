@@ -1,6 +1,6 @@
-import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
-import { HttpAdapterHost } from '@nestjs/core';
-import { Request, Response } from 'express';
+import { ExceptionFilter, Catch, ArgumentsHost } from "@nestjs/common";
+import { HttpAdapterHost } from "@nestjs/core";
+import { Request, Response } from "express";
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
@@ -23,7 +23,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     const exceptionRes = exception.getResponse();
 
     const message =
-      typeof exception.message === 'string'
+      typeof exception.message === "string"
         ? exception.message
         : exception.message.message;
 
@@ -35,7 +35,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     const responseBody = {
       statusCode,
       success: this.getStatusSuccess(
-        exceptionRes.response?.statusCode || exceptionRes.status,
+        exceptionRes.response?.statusCode || exceptionRes.status
       ),
       data: null,
       message,

@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-import { DEFAULT_CONFIG } from './config.default';
-import { ConfigData } from './config.interface';
+import { DEFAULT_CONFIG } from "./config.default";
+import { ConfigData } from "./config.interface";
 
 /**
  * Provides a means to access the application configuration.

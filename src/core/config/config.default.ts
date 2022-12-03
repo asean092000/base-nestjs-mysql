@@ -1,8 +1,8 @@
-import { ConfigData } from './config.interface';
+import { ConfigData } from "./config.interface";
 
 export const DEFAULT_CONFIG: ConfigData = {
-  env: '',
+  env: "",
   port: 3000,
-  logLevel: 'info',
+  logLevel: "info",
   gatekeeperServiceUrl: undefined,
 };

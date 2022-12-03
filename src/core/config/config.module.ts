@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { ConfigSystemService } from './config.service';
+import { Module } from "@nestjs/common";
+import { ConfigSystemService } from "./config.service";
 
 const configFactory = {
   provide: ConfigSystemService,

@@ -1,17 +1,17 @@
-import { Injectable, LoggerService } from '@nestjs/common';
-import * as moment from 'moment';
-import { MESSAGE } from 'triple-beam';
-import * as winston from 'winston';
+import { Injectable, LoggerService } from "@nestjs/common";
+import * as moment from "moment";
+import { MESSAGE } from "triple-beam";
+import * as winston from "winston";
 
-import { ConfigSystemService } from '../config/config.service';
-import { isLogLevel, LogLevel } from './loglevel';
+import { ConfigSystemService } from "../config/config.service";
+import { isLogLevel, LogLevel } from "./loglevel";
 
 const formatter = winston.format((info) => {
   if (info.level === LogLevel.HTTP) {
     // HTTP messages are already formatted by the middleware, so just pass through
     return info;
   }
-  info.message = `[${moment().format('ddd MMM DD HH:mm:ss YYYY')}] [${
+  info.message = `[${moment().format("ddd MMM DD HH:mm:ss YYYY")}] [${
     info.level
   }] ${info.message}`;
   return info;
@@ -38,7 +38,7 @@ export class Logger implements LoggerService {
       new winston.transports.Console({
         format: passthrough(),
         stderrLevels: [LogLevel.Error, LogLevel.Warn],
-      }),
+      })
     );
   }
 
