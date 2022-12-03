@@ -1,8 +1,10 @@
-import { STATUSCODE } from '../../constants/statusCode';
+import { STATUSCODE } from "../../constants/statusCode";
 
 export class BaseResponse {
   code: STATUSCODE | number;
+
   message: string;
+
   data: any;
 
   constructor(code: STATUSCODE | number, data?: any, message?: string) {
@@ -12,5 +14,4 @@ export class BaseResponse {
   }
 }
 
-export class BaseErrorResponse extends BaseResponse{
-}
+export class BaseErrorResponse extends BaseResponse {}

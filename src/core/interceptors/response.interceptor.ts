@@ -3,10 +3,10 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-} from '@nestjs/common';
-import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+} from "@nestjs/common";
+import { HttpArgumentsHost } from "@nestjs/common/interfaces";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 export interface Response<T> {
   data: T;
@@ -21,7 +21,7 @@ export class TransformInterceptor<T>
 {
   intercept(
     context: ExecutionContext,
-    next: CallHandler,
+    next: CallHandler
   ): Observable<Response<T>> {
     const ctx = context.switchToHttp();
     return next.handle().pipe(
@@ -29,8 +29,8 @@ export class TransformInterceptor<T>
         data,
         success: this.getStatusSuccess(ctx),
         statusCode: ctx.getResponse().statusCode,
-        message: 'success',
-      })),
+        message: "success",
+      }))
     );
   }
 

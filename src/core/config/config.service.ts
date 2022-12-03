@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-import { DEFAULT_CONFIG } from './config.default';
-import { ConfigData } from './config.interface';
+import { DEFAULT_CONFIG } from "./config.default";
+import { ConfigData } from "./config.interface";
 
 /**
  * Provides a means to access the application configuration.
@@ -30,6 +30,7 @@ export class ConfigSystemService {
         env.GATEKEEPER_SERVICE_URL || DEFAULT_CONFIG.gatekeeperServiceUrl,
     };
   }
+
   public get(): Readonly<ConfigData> {
     return this.config;
   }
