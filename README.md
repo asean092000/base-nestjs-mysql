@@ -19,7 +19,7 @@ cp -b .env.example .env
 # docker ssh into node container
 
 docker ps<br/>
-docker exec -it mycontainer sh ##for alpine<br/>
+docker exec -it app_dev sh ##for alpine<br/>
 
 # Feature modules
 
