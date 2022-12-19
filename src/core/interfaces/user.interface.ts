@@ -1,5 +1,5 @@
-import { BaseInterface } from "./base.interface";
-export interface UserInterface extends BaseInterface {
+export interface UserInterface {
   username: string;
+  password:string;
   roles: string[];
 }
