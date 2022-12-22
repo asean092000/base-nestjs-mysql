@@ -5,13 +5,15 @@ export class BaseResponse {
 
   message: string;
 
-  data: any;
+  result: any;
 
   constructor(code: STATUSCODE | number, data?: any, message?: string) {
     this.code = code;
     this.message = message;
-    this.data = data || null;
+    this.result = data || null;
   }
 }
 
-export class BaseErrorResponse extends BaseResponse {}
+export class ErrorResponse extends BaseResponse {}
+
+export class SuccessResponse extends BaseResponse {}
