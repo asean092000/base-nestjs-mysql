@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Example } from './example.entity';
-import { ExampleController } from './example.controller';
-import { ExampleService } from './example.service';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Example } from "./example.entity";
+import { ExampleController } from "./example.controller";
+import { ExampleService } from "./example.service";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Example])],

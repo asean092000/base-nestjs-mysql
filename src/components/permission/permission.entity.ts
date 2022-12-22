@@ -5,28 +5,26 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-
-@Entity({ name: "examples" })
-export class Example {
+@Entity({ name: "permissions" })
+export class Permission {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
-  @Column({
-    nullable: false,
-  })
-  count: number;
+  @Column({ unique: true, nullable: false })
+  public role: string;
 
   @CreateDateColumn({
     type: "timestamp",
-    nullable: false,
     default: () => "CURRENT_TIMESTAMP(6)",
+    name: "createdAt",
   })
-  createdAt: Date;
+  public createdAt!: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
     onUpdate: "CURRENT_TIMESTAMP(6)",
+    name: "updatedAt",
   })
-  updatedAt: Date;
+  public updatedAt!: Date;
 }

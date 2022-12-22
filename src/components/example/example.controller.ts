@@ -9,34 +9,32 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
-} from '@nestjs/common';
-import { CreateExampleDto, UpdateExampleDto } from './dto/index';
-import { Example } from './example.entity';
-import { ExampleService } from './example.service';
-import { Response,  ErrorResponse } from 'src/core/interfaces';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+} from "@nestjs/common";
+import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
+import { Example } from "./example.entity";
+import { ExampleService } from "./example.service";
+import { Response, ErrorResponse } from "src/core/interfaces";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 
-@Controller('/api/v1/example')
-@ApiTags('example')
+@Controller("/api/v1/example")
+@ApiTags("example")
 export class ExampleController {
   constructor(private exampleService: ExampleService) {}
 
-  @Post('create')
+  @Post("create")
   @ApiOperation({
-    description: 'Create example',
+    description: "Create example",
   })
   @ApiOkResponse({
     type: Response<Example>,
   })
-  async create(
-    @Body() exampleDto: CreateExampleDto,
-  ): Promise<any> {
+  async create(@Body() exampleDto: CreateExampleDto): Promise<any> {
     return this.exampleService.create(exampleDto);
   }
 
-  @Get('all')
+  @Get("all")
   @ApiOperation({
-    description: 'Get all example',
+    description: "Get all example",
   })
   @ApiOkResponse({
     type: Response<Example[]>,
@@ -45,37 +43,37 @@ export class ExampleController {
     return this.exampleService.getAll();
   }
 
-  @Get(':id')
+  @Get(":id")
   @ApiOperation({
-    description: 'Get example by id',
+    description: "Get example by id",
   })
   @ApiOkResponse({
     type: Response<Example>,
   })
-  async GetOne(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async GetOne(@Param("id", ParseIntPipe) id: number): Promise<any> {
     return this.exampleService.getOneById(id);
   }
 
-  @Patch(':id')
+  @Patch(":id")
   @ApiOperation({
-    description: 'Update example',
+    description: "Update example",
   })
   @ApiOkResponse({
     type: Response<Example>,
   })
   @UsePipes(ValidationPipe)
   async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() exampleDto: UpdateExampleDto,
+    @Param("id", ParseIntPipe) id: number,
+    @Body() exampleDto: UpdateExampleDto
   ): Promise<any> {
     return this.exampleService.update(id, exampleDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @ApiOperation({
-    description: 'Delete example',
+    description: "Delete example",
   })
-  async delete(@Param('id') id: number): Promise<any> {
+  async delete(@Param("id") id: number): Promise<any> {
     return this.exampleService.delete(id);
   }
 }
