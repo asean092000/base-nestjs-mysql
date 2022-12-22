@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, Logger}  from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateExampleDto, UpdateExampleDto } from './dto/index';
@@ -12,6 +12,7 @@ export class ExampleService {
     @InjectRepository(Example)
     private exampleRepository: Repository<Example>,
   ) {}
+  private readonly logger = new Logger(ExampleService.name);
 
   async getAll(): Promise<any> {
     try {
@@ -20,6 +21,7 @@ export class ExampleService {
       return new SuccessResponse(STATUSCODE.COMMON_SUCCESS, examples, MESSAGE.LIST_SUCCESS);
     } catch (error) {
 
+      this.logger.debug(`${ExampleService.name} is Logging error: ${JSON.stringify(error)}`);
       return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, MESSAGE.LIST_FAILED);
     }
   }
@@ -31,17 +33,20 @@ export class ExampleService {
       return new SuccessResponse(STATUSCODE.COMMON_SUCCESS, example, MESSAGE.LIST_SUCCESS);
     } catch (error) {
 
+      this.logger.debug(`${ExampleService.name} is Logging error: ${JSON.stringify(error)}`);
       return new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, error, ERROR.NOT_FOUND);
     }
   }
 
   async create(exampleDto: CreateExampleDto): Promise<any> {
     try {
-      const createdExample = this.exampleRepository.create(exampleDto);
+      const createdExample = await this.exampleRepository.create(exampleDto);
       await this.exampleRepository.save(createdExample);
 
       return new SuccessResponse(STATUSCODE.COMMON_CREATE_SUCCESS, createdExample, MESSAGE.CREATE_SUCCESS);
     } catch (error) {
+
+      this.logger.debug(`${ExampleService.name} is Logging error: ${JSON.stringify(error)}`);
       return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.CREATE_FAILED);
     }
   }
@@ -56,7 +61,7 @@ export class ExampleService {
       });
   
       if (!foundExample) {
-        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `Example with id ${id} not found.`, ERROR.NOT_FOUND);
+        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `Example with id: ${id} not found!`, ERROR.NOT_FOUND);
       }
   
       foundExample = {
@@ -64,10 +69,12 @@ export class ExampleService {
         ...exampleDto,
         updatedAt: new Date(),
       };
-      
+      await this.exampleRepository.save(foundExample);
+
       return new SuccessResponse(STATUSCODE.COMMON_UPDATE_SUCCESS, foundExample, MESSAGE.UPDATE_SUCCESS);
     } catch (error) {
-
+      
+      this.logger.debug(`${ExampleService.name} is Logging error: ${JSON.stringify(error)}`);
       return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.UPDATE_FAILED);
     }
   }
@@ -79,13 +86,14 @@ export class ExampleService {
       });
   
       if (!foundExample) {
-        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `Example with id ${id} not found.`, ERROR.NOT_FOUND);
+        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `Example with id: ${id} not found!`, ERROR.NOT_FOUND);
       }
       await this.exampleRepository.delete(id);
 
-      return new SuccessResponse(STATUSCODE.COMMON_DELETE_SUCCESS, `Example has deleted id: ${id} success` , MESSAGE.DELETE_SUCCESS);
+      return new SuccessResponse(STATUSCODE.COMMON_DELETE_SUCCESS, `Example has deleted id: ${id} success!` , MESSAGE.DELETE_SUCCESS);
     } catch (error) {
       
+      this.logger.debug(`${ExampleService.name} is Logging error: ${JSON.stringify(error)}`);
       return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.DELETE_FAILED);
     }
   }

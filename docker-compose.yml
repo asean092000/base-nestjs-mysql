@@ -43,7 +43,7 @@ services:
       - SYS_NICE
     restart: always
     environment:
-      - MYSQL_DATABASE=docker_nest
+      - MYSQL_DATABASE=nestjs_core
       - MYSQL_ROOT_PASSWORD=mauFJcuf5dhRMQrjj
     ports:
       - "3306:3306"
