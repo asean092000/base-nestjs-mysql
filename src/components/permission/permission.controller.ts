@@ -9,15 +9,23 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
+  UseGuards,
 } from "@nestjs/common";
 import { CreatePermissionDto, UpdatePermissionDto } from "./dto/index";
 import { Permission } from "./permission.entity";
 import { PermissionService } from "./permission.service";
 import { Response, ErrorResponse } from "src/core/interfaces";
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiBearerAuth,
+} from "@nestjs/swagger";
+import { JwtGuard } from "src/core/guards/jwt.guard";
 @Controller("/api/v1/permission")
-@ApiTags("permission")
+@ApiTags("Permissions")
+@UseGuards(JwtGuard)
+@ApiBearerAuth("Authorization")
 export class PermissionController {
   constructor(private permissionService: PermissionService) {}
 

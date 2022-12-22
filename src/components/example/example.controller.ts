@@ -14,10 +14,16 @@ import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
 import { ExampleService } from "./example.service";
 import { Response, ErrorResponse } from "src/core/interfaces";
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiBearerAuth,
+} from "@nestjs/swagger";
 
 @Controller("/api/v1/example")
-@ApiTags("example")
+@ApiTags("Examples")
+@ApiBearerAuth("Authorization")
 export class ExampleController {
   constructor(private exampleService: ExampleService) {}
 
