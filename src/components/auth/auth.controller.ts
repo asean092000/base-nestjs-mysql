@@ -1,5 +1,9 @@
 import { Controller, Request, Post, Body } from "@nestjs/common";
+import { Response } from "src/core/interfaces"; 
 import { AuthService } from "./auth.service";
+import { JWTResult } from "src/core/interfaces";
+import { User } from "../user/user.entity";
+import { CreateUserDto } from "../user/dto";
 import {
   ApiOkResponse,
   ApiOperation,
@@ -15,7 +19,21 @@ export class AuthController {
   @ApiOperation({
     description: 'Login to the system',
   })
+  @ApiOkResponse({
+    type: Response<JWTResult>,
+  })
   async login(@Request() req, @Body() loginDto: LogInDto) {
     return this.authService.login(req.user);
+  }
+
+  @Post('register')
+  @ApiOperation({
+    description: 'Register user',
+  })
+  @ApiOkResponse({
+    type: Response<User>,
+  })
+  async register(@Body() registerDto: CreateUserDto) {
+    return await this.authService.register(registerDto);
   }
 }
