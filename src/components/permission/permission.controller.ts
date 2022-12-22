@@ -9,34 +9,32 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
-} from '@nestjs/common';
-import { CreatePermissionDto, UpdatePermissionDto } from './dto/index';
-import { Permission } from './permission.entity';
-import { PermissionService } from './permission.service';
-import { Response,  ErrorResponse } from 'src/core/interfaces';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+} from "@nestjs/common";
+import { CreatePermissionDto, UpdatePermissionDto } from "./dto/index";
+import { Permission } from "./permission.entity";
+import { PermissionService } from "./permission.service";
+import { Response, ErrorResponse } from "src/core/interfaces";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 
-@Controller('/api/v1/permission')
-@ApiTags('permission')
+@Controller("/api/v1/permission")
+@ApiTags("permission")
 export class PermissionController {
   constructor(private permissionService: PermissionService) {}
 
-  @Post('create')
+  @Post("create")
   @ApiOperation({
-    description: 'Create permission',
+    description: "Create permission",
   })
   @ApiOkResponse({
     type: Response<Permission>,
   })
-  async create(
-    @Body() permissionDto: CreatePermissionDto,
-  ): Promise<any> {
+  async create(@Body() permissionDto: CreatePermissionDto): Promise<any> {
     return this.permissionService.create(permissionDto);
   }
 
-  @Get('all')
+  @Get("all")
   @ApiOperation({
-    description: 'Get all permission',
+    description: "Get all permission",
   })
   @ApiOkResponse({
     type: Response<Permission[]>,
@@ -45,37 +43,37 @@ export class PermissionController {
     return this.permissionService.getAll();
   }
 
-  @Get(':id')
+  @Get(":id")
   @ApiOperation({
-    description: 'Get permission by id',
+    description: "Get permission by id",
   })
   @ApiOkResponse({
     type: Response<Permission>,
   })
-  async GetOne(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async GetOne(@Param("id", ParseIntPipe) id: number): Promise<any> {
     return this.permissionService.getOneById(id);
   }
 
-  @Patch(':id')
+  @Patch(":id")
   @ApiOperation({
-    description: 'Update permission',
+    description: "Update permission",
   })
   @ApiOkResponse({
     type: Response<Permission>,
   })
   @UsePipes(ValidationPipe)
   async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() permissionDto: UpdatePermissionDto,
+    @Param("id", ParseIntPipe) id: number,
+    @Body() permissionDto: UpdatePermissionDto
   ): Promise<any> {
     return this.permissionService.update(id, permissionDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @ApiOperation({
-    description: 'Delete permission',
+    description: "Delete permission",
   })
-  async delete(@Param('id') id: number): Promise<any> {
+  async delete(@Param("id") id: number): Promise<any> {
     return this.permissionService.delete(id);
   }
 }

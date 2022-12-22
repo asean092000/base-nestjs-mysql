@@ -4,8 +4,8 @@ import {
   IsNotEmpty,
   MinLength,
   Matches,
-} from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+} from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class RegisterDto {
   @IsEmail()
@@ -24,8 +24,8 @@ export class RegisterDto {
   password: string;
 
   @ApiProperty({
-    description: 'Has to match a regular expression: /^\\+[1-9]\\d{1,14}$/',
-    example: '+123123123123',
+    description: "Has to match a regular expression: /^\\+[1-9]\\d{1,14}$/",
+    example: "+123123123123",
   })
   @IsString()
   @IsNotEmpty()

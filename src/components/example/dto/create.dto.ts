@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsNumber, Max, Min } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, Max, Min } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateExampleDto {
   @IsNotEmpty()

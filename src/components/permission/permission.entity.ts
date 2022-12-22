@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
-@Entity({ name: 'permissions' })
+} from "typeorm";
+@Entity({ name: "permissions" })
 export class Permission {
   @PrimaryGeneratedColumn()
   public id: number;
@@ -14,17 +14,17 @@ export class Permission {
   public role: string;
 
   @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    name: 'createdAt',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    name: "createdAt",
   })
   public createdAt!: Date;
 
   @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    name: 'updatedAt',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
+    name: "updatedAt",
   })
   public updatedAt!: Date;
 }

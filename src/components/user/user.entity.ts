@@ -5,9 +5,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import * as bcrypt from 'bcrypt';
-@Entity({ name: 'users' })
+} from "typeorm";
+import * as bcrypt from "bcrypt";
+@Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
   public id: number;
@@ -19,9 +19,9 @@ export class User {
   public password: string;
 
   @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    name: 'createdAt',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    name: "createdAt",
   })
   public createdAt!: Date;
 
@@ -29,10 +29,10 @@ export class User {
   permissionId: number;
 
   @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    name: 'updatedAt',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
+    name: "updatedAt",
   })
   public updatedAt!: Date;
 

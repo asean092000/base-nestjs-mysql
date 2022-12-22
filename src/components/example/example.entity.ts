@@ -4,9 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
-@Entity({ name: 'examples' })
+@Entity({ name: "examples" })
 export class Example {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,16 +17,16 @@ export class Example {
   count: number;
 
   @CreateDateColumn({
-    type: 'timestamp',
+    type: "timestamp",
     nullable: false,
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => "CURRENT_TIMESTAMP(6)",
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
   })
   updatedAt: Date;
 }

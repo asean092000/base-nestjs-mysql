@@ -9,34 +9,32 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
-} from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './dto/index';
-import  { User } from './user.entity';
+} from "@nestjs/common";
+import { CreateUserDto, UpdateUserDto } from "./dto/index";
+import { User } from "./user.entity";
 import { UserService } from "../user/user.service";
-import { Response,  ErrorResponse } from 'src/core/interfaces';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Response, ErrorResponse } from "src/core/interfaces";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 
-@Controller('/api/v1/user')
-@ApiTags('user')
+@Controller("/api/v1/user")
+@ApiTags("user")
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post('create')
+  @Post("create")
   @ApiOperation({
-    description: 'Create user',
+    description: "Create user",
   })
   @ApiOkResponse({
     type: Response<User>,
   })
-  async create(
-    @Body() userDto: CreateUserDto,
-  ): Promise<any> {
+  async create(@Body() userDto: CreateUserDto): Promise<any> {
     return this.userService.create(userDto);
   }
 
-  @Get('all')
+  @Get("all")
   @ApiOperation({
-    description: 'Get all user',
+    description: "Get all user",
   })
   @ApiOkResponse({
     type: Response<User[]>,
@@ -45,14 +43,14 @@ export class UserController {
     return this.userService.getAll();
   }
 
-  @Get(':id')
+  @Get(":id")
   @ApiOperation({
-    description: 'Get user by id',
+    description: "Get user by id",
   })
   @ApiOkResponse({
     type: Response<User>,
   })
-  async GetOne(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async GetOne(@Param("id", ParseIntPipe) id: number): Promise<any> {
     return this.userService.getOneById(id);
   }
 
@@ -71,11 +69,11 @@ export class UserController {
   //   return this.userService.update(id, userDto);
   // }
 
-  @Delete(':id')
+  @Delete(":id")
   @ApiOperation({
-    description: 'Delete user',
+    description: "Delete user",
   })
-  async delete(@Param('id') id: number): Promise<any> {
+  async delete(@Param("id") id: number): Promise<any> {
     return this.userService.delete(id);
   }
 }
