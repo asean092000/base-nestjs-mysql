@@ -7,7 +7,7 @@ import { Permission } from "../permission/permission.entity";
 @Module({
   imports: [TypeOrmModule.forFeature([User, Permission])],
   providers: [UserService],
-  controllers: [UserController],
+  // controllers: [UserController],
   exports: [UserService],
 })
 export class UserModule {}
