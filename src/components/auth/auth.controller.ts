@@ -1,8 +1,5 @@
-import { User } from './../users/users.service';
-import { Controller, Request, Post, Body, SetMetadata } from "@nestjs/common";
+import { Controller, Request, Post, Body } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { Roles } from "src/core/guards/roles.decorator";
-import { Role } from "src/core/guards/role.enum";
 import {
   ApiOkResponse,
   ApiOperation,
@@ -15,7 +12,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post("login")
-  @Roles(Role.CUSTOMER)
   @ApiOperation({
     description: 'Login to the system',
   })

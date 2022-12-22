@@ -11,8 +11,7 @@ import { RolesGuard } from "./core/guards/roles.guard";
     ConfigSystemModule,
     ConfigModule.forRoot(),
     LoggerModule,
-
-    MainModule,
+    MainModule
   ],
   providers: [
     {
