@@ -6,7 +6,7 @@ import {
 import { UserService } from "../user/user.service";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
-
+import { CreateUserDto } from "../user/dto";
 @Injectable()
 export class AuthService {
   constructor(
@@ -32,5 +32,12 @@ export class AuthService {
         sub: user.id,
       }),
     };
+  }
+
+  async register(createDto: CreateUserDto) {
+    const createdUser = await this.userService.create(createDto);
+    const { password, ...rest } = createdUser;
+
+    return rest;
   }
 }

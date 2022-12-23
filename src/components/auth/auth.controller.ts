@@ -6,11 +6,14 @@ import {
   Request,
   UseGuards,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
-import { JwtAuthGuard } from "./jwt-auth.guard";
 import { LocalAuthGuard } from "./local-auth.guard";
+import { JWTResult } from "src/core/interfaces";
+import { Response } from "src/core/interfaces";
+import { User } from "../user/user.entity";
+import { CreateUserDto } from "../user/dto";
 
 @ApiTags("Auth")
 @Controller("auth")
@@ -19,14 +22,24 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post("login")
+  @ApiOperation({
+    description: "Login to the system",
+  })
+  @ApiOkResponse({
+    type: Response<JWTResult>,
+  })
   async login(@Request() req, @Body() loginDto: LoginDto): Promise<any> {
     return this.authService.generateToken(req.user);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get("user")
-  async user(@Request() req): Promise<any> {
-    return req.user;
+  @Post("register")
+  @ApiOperation({
+    description: "Register user",
+  })
+  @ApiOkResponse({
+    type: Response<User>,
+  })
+  async register(@Body() registerDto: CreateUserDto) {
+    return this.authService.register(registerDto);
   }
 }
