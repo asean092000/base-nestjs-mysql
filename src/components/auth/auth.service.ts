@@ -30,11 +30,9 @@ export class AuthService {
   }
 
   async register(createDto: CreateUserDto) {
-    try {
       const createdUser = await this.userService.create(createDto);
       const { password, ...rest } = createdUser;
 
       return rest;
-    } catch (error) {}
   }
 }

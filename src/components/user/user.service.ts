@@ -12,27 +12,20 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    @InjectRepository(Permission)
-    private permissionRepository: Repository<Permission>
   ) {}
-
   private readonly logger = new Logger(UserService.name);
 
-  async getByUsername(email: string) {
+  async getByUsername(username: string) {
     const user = await this.userRepository.findOne({
       where: {
-        email,
+        username,
       },
     });
     if (!user) {
-      throw new NotFoundException("User with this email does not exist");
+      throw new NotFoundException("User with this username does not exist");
     }
 
-    const permission = await this.permissionRepository.findOneBy({
-      id: user.permissionId,
-    });
-    console.log({ ...user, permission });
-    return { ...user, permission };
+    return { ...user };
   }
 
   async getAll(): Promise<any> {

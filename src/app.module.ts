@@ -4,7 +4,7 @@ import { ConfigSystemModule } from "./core/config/config.module";
 import { LoggerModule } from "./core/middleware/logger.module";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
-import { RolesGuard } from "./core/guards/roles.guard";
+import { RolesGuard } from "./components/guards/roles.guard";
 
 @Module({
   imports: [

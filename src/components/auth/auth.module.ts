@@ -1,5 +1,5 @@
-import { JwtStrategy } from "./../../core/strategies/jwt.strategy";
-import { LocalStrategy } from "./../../core/strategies/local.strategy";
+import { JwtStrategy } from "../strategies/jwt.strategy";
+import { LocalStrategy } from "../strategies/local.strategy";
 import { AuthController } from "./auth.controller";
 import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";

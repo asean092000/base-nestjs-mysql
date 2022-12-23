@@ -10,6 +10,11 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  username: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   password: string;
 
   @ApiProperty({ default: -1 })

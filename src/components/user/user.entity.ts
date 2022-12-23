@@ -15,6 +15,9 @@ export class User {
   @Column({ unique: true, nullable: false })
   public email: string;
 
+  @Column({ unique: true, nullable: false })
+  public username: string;
+
   @Column({ nullable: false })
   public password: string;
 
