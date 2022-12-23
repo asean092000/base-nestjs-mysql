@@ -2,7 +2,6 @@ import { NotFoundException, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
-import { Permission } from "../permission/permission.entity";
 import { CreateUserDto, UpdateUserDto } from "./dto/index";
 import { SuccessResponse, ErrorResponse } from "src/core/BaseResponse/index";
 import { STATUSCODE, MESSAGE, ERROR } from "src/core/constants";
@@ -30,7 +29,9 @@ export class UserService {
 
   async getAll(): Promise<any> {
     try {
-      const users = await this.userRepository.find({});
+      const users = await this.userRepository.find({
+        select: ['id', 'username', 'email']
+    });
 
       return new SuccessResponse(
         STATUSCODE.COMMON_SUCCESS,
@@ -74,10 +75,9 @@ export class UserService {
     try {
       const createdUser = await this.userRepository.create(userDto);
       await this.userRepository.save(createdUser);
-
       return new SuccessResponse(
         STATUSCODE.COMMON_CREATE_SUCCESS,
-        createdUser,
+        '',
         MESSAGE.CREATE_SUCCESS
       );
     } catch (error) {

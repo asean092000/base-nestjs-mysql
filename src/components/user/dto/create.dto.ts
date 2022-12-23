@@ -16,11 +16,6 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
-
-  @ApiProperty({ default: -1 })
-  @IsNumber()
-  @IsNotEmpty()
-  permissionId = -1;
 }
 
 export default CreateUserDto;

@@ -28,9 +28,6 @@ export class User {
   })
   public createdAt!: Date;
 
-  @Column({ nullable: false, default: -1 })
-  permissionId: number;
-
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
