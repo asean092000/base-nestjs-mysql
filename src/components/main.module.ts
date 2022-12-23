@@ -1,6 +1,5 @@
 import { PermissionModule } from "./permission/permission.module";
 import { Module } from "@nestjs/common";
-import { AuthModule } from "./auth/auth.module";
 import { ExampleModule } from "./example/example.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 @Module({
@@ -17,7 +16,6 @@ import { TypeOrmModule } from "@nestjs/typeorm";
         synchronize: true,
       }),
     }),
-    AuthModule,
     ExampleModule,
     PermissionModule,
   ],

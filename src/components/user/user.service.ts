@@ -10,7 +10,7 @@ import { STATUSCODE, MESSAGE, ERROR } from "src/core/constants";
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private userRepository: Repository<User>
   ) {}
   private readonly logger = new Logger(UserService.name);
 
@@ -30,8 +30,8 @@ export class UserService {
   async getAll(): Promise<any> {
     try {
       const users = await this.userRepository.find({
-        select: ['id', 'username', 'email']
-    });
+        select: ["id", "username", "email"],
+      });
 
       return new SuccessResponse(
         STATUSCODE.COMMON_SUCCESS,
@@ -77,7 +77,7 @@ export class UserService {
       await this.userRepository.save(createdUser);
       return new SuccessResponse(
         STATUSCODE.COMMON_CREATE_SUCCESS,
-        '',
+        "",
         MESSAGE.CREATE_SUCCESS
       );
     } catch (error) {
