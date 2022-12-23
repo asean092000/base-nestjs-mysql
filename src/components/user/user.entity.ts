@@ -7,10 +7,15 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import * as bcrypt from "bcrypt";
+import { UserRoles } from "./enums/user.enum";
+import { REGEX, MESSAGES } from "./../../core/config/app.utils";
 @Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
   public id: number;
+
+  @Column({ unique: true, nullable: false })
+  public name: string;
 
   @Column({ unique: true, nullable: false })
   public email: string;
@@ -20,6 +25,9 @@ export class User {
 
   @Column({ nullable: false })
   public password: string;
+
+  @Column({ type: "enum", enum: UserRoles, default: UserRoles.MEMBER })
+  role: UserRoles;
 
   @CreateDateColumn({
     type: "timestamp",
