@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import {
   Body,
   Controller,
@@ -23,7 +24,10 @@ import {
 } from "@nestjs/swagger";
 @Controller("/api/v1/permission")
 @ApiTags("Permissions")
-// @ApiBearerAuth("Authorization")
+@ApiBearerAuth("Authorization")
+// @ApiSecurity('bearer')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class PermissionController {
   constructor(private permissionService: PermissionService) {}
 

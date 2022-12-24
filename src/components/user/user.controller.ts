@@ -9,15 +9,18 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
+  UseGuards
 } from "@nestjs/common";
 import { CreateUserDto, UpdateUserDto } from "./dto/index";
 import { User } from "./user.entity";
 import { UserService } from "../user/user.service";
 import { Response, ErrorResponse } from "src/core/interfaces";
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-
+import { ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
+import { Roles } from '../auth/roles.decorator';
+import { RolesGuard } from '../auth/roles.guard';
 @Controller("/api/v1/user")
 @ApiTags("user")
+// @ApiBearerAuth("Authorization")
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -33,6 +36,8 @@ export class UserController {
   }
 
   @Get("all")
+  // @UseGuards(RolesGuard)
+  // @Roles('admin')
   @ApiOperation({
     description: "Get all user",
   })
