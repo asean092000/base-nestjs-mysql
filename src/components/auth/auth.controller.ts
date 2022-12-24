@@ -20,8 +20,9 @@ import { CreateUserDto } from "../user/dto";
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+ 
   @Post("login")
+  @UseGuards(LocalAuthGuard)
   @ApiOperation({
     description: "Login to the system",
   })
