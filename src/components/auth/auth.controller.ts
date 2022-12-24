@@ -1,25 +1,46 @@
-import { User } from './../users/users.service';
-import { Controller, Request, Post, Body, SetMetadata } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { Roles } from "src/core/guards/roles.decorator";
-import { Role } from "src/core/guards/role.enum";
 import {
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
-import { LogInDto } from "./dto/index";
-@Controller('/api/v1/auth')
-@ApiTags('Auth')
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from "@nestjs/common";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { AuthService } from "./auth.service";
+import { LoginDto } from "./dto/login.dto";
+import { LocalAuthGuard } from "./local-auth.guard";
+import { JWTResult } from "src/core/interfaces";
+import { Response } from "src/core/interfaces";
+import { User } from "../user/user.entity";
+import { CreateUserDto } from "../user/dto";
+
+@ApiTags("Auth")
+@Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+ 
   @Post("login")
-  @Roles(Role.CUSTOMER)
+  @UseGuards(LocalAuthGuard)
   @ApiOperation({
-    description: 'Login to the system',
+    description: "Login to the system",
   })
-  async login(@Request() req, @Body() loginDto: LogInDto) {
-    return this.authService.login(req.user);
+  @ApiOkResponse({
+    type: Response<JWTResult>,
+  })
+  async login(@Request() req, @Body() loginDto: LoginDto): Promise<any> {
+    return this.authService.generateToken(req.user);
+  }
+
+  @Post("register")
+  @ApiOperation({
+    description: "Register user",
+  })
+  @ApiOkResponse({
+    type: Response<User>,
+  })
+  async register(@Body() registerDto: CreateUserDto) {
+    return this.authService.register(registerDto);
   }
 }

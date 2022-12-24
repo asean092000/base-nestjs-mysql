@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
 export class Response<T> {
   @ApiProperty()
@@ -23,9 +23,6 @@ export class Response<T> {
 
 export class ErrorResponse {
   @ApiProperty()
-  data: null;
-
-  @ApiProperty()
   statusCode: number;
 
   @ApiProperty()
@@ -39,4 +36,10 @@ export class ErrorResponse {
 
   @ApiProperty()
   path: string;
+
+  constructor(statusCode: number, success: boolean, message: string) {
+    this.statusCode = statusCode;
+    this.success = success;
+    this.message = message;
+  }
 }
