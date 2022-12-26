@@ -3,7 +3,7 @@ import * as moment from "moment";
 import { MESSAGE } from "triple-beam";
 import * as winston from "winston";
 
-import { ConfigSystemService } from "../config/config.service";
+import { ConfigSystemService } from "../config.system/config.service";
 import { isLogLevel, LogLevel } from "./loglevel";
 
 const formatter = winston.format((info) => {

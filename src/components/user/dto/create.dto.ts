@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString, Matches, Length } from "class-validator";
-import { REGEX, MESSAGES } from "../../../core/config/app.utils";
+import { REGEX, MESSAGES } from "../../../core/config.system/app.utils";
 export class CreateUserDto {
   @ApiProperty()
   @IsString()

@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { UserRoles } from "./enums/user.enum";
-import { REGEX, MESSAGES } from "./../../core/config/app.utils";
+import { REGEX, MESSAGES } from "../../core/config.system/app.utils";
 @Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
