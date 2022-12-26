@@ -14,7 +14,7 @@ import {
 import { CreateUserDto, UpdateUserDto } from "./dto/index";
 import { User } from "./user.entity";
 import { UserService } from "../user/user.service";
-import { Response, ErrorResponse } from "src/core/interfaces";
+import { Response, ErrorResponse } from "src/system/interfaces";
 import { ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';

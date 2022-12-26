@@ -3,8 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
-import { SuccessResponse, ErrorResponse } from "src/core/BaseResponse/index";
-import { STATUSCODE, MESSAGE, ERROR } from "src/core/constants";
+import { SuccessResponse, ErrorResponse } from "src/system/BaseResponse/index";
+import { STATUSCODE, MESSAGE, ERROR } from "src/system/constants";
 
 @Injectable()
 export class ExampleService {

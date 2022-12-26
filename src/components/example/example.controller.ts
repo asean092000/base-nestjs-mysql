@@ -13,7 +13,7 @@ import {
 import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
 import { ExampleService } from "./example.service";
-import { Response, ErrorResponse } from "src/core/interfaces";
+import { Response, ErrorResponse } from "src/system/interfaces";
 import {
   ApiOkResponse,
   ApiOperation,
