@@ -25,8 +25,6 @@ import {
 @Controller("/api/v1/permission")
 @ApiTags("Permissions")
 @ApiBearerAuth("Authorization")
-// @ApiSecurity('bearer')
-@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class PermissionController {
   constructor(private permissionService: PermissionService) {}

@@ -92,33 +92,34 @@ export class UserService {
     }
   }
 
-  // async update(
-  //   id: number,
-  //   userDto: UpdateUserDto,
-  // ): Promise<any> {
-  //   try {
-  //     let foundUser = await this.userRepository.findOneBy({
-  //       id
-  //     });
+  async update(
+    id: number,
+    userDto: UpdateUserDto,
+  ): Promise<any> {
+    try {
+      let foundUser = await this.userRepository.findOneBy({
+        id
+      });
 
-  //     if (!foundUser) {
-  //       throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `User with id: ${id} not found!`, ERROR.NOT_FOUND);
-  //     }
+      if (!foundUser) {
+        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `User with id: ${id} not found!`, ERROR.NOT_FOUND);
+      }
 
-  //     foundUser = {
-  //       ...foundUser,
-  //       ...userDto,
-  //       updatedAt: new Date(),
-  //     };
-  //     await this.userRepository.save(foundUser);
+      foundUser = {
+        ...foundUser,
+        ...userDto,
+        updatedAt: new Date(),
+        hashPassword:null
+      };
+      await this.userRepository.save(foundUser);
 
-  //     return new SuccessResponse(STATUSCODE.COMMON_UPDATE_SUCCESS, foundUser, MESSAGE.UPDATE_SUCCESS);
-  //   } catch (error) {
+      return new SuccessResponse(STATUSCODE.COMMON_UPDATE_SUCCESS, foundUser, MESSAGE.UPDATE_SUCCESS);
+    } catch (error) {
 
-  //     this.logger.debug(`${UserService.name} is Logging error: ${JSON.stringify(error)}`);
-  //     return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.UPDATE_FAILED);
-  //   }
-  // }
+      this.logger.debug(`${UserService.name} is Logging error: ${JSON.stringify(error)}`);
+      return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.UPDATE_FAILED);
+    }
+  }
 
   async delete(id: number): Promise<any> {
     try {

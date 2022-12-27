@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import {
   Body,
   Controller,
@@ -20,7 +21,8 @@ import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 @Controller("/api/v1/user")
 @ApiTags("user")
-// @ApiBearerAuth("Authorization")
+@ApiBearerAuth("Authorization")
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -36,8 +38,8 @@ export class UserController {
   }
 
   @Get("all")
-  // @UseGuards(RolesGuard)
-  // @Roles('admin')
+  @UseGuards(RolesGuard)
+  @Roles('admin')
   @ApiOperation({
     description: "Get all user",
   })
@@ -59,20 +61,20 @@ export class UserController {
     return this.userService.getOneById(id);
   }
 
-  // @Patch(':id')
-  // @ApiOperation({
-  //   description: 'Update user',
-  // })
-  // @ApiOkResponse({
-  //   type: Response<User>,
-  // })
-  // @UsePipes(ValidationPipe)
-  // async update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() userDto: UpdateUserDto,
-  // ): Promise<any> {
-  //   return this.userService.update(id, userDto);
-  // }
+  @Patch(':id')
+  @ApiOperation({
+    description: 'Update user',
+  })
+  @ApiOkResponse({
+    type: Response<User>,
+  })
+  @UsePipes(ValidationPipe)
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() userDto: UpdateUserDto,
+  ): Promise<any> {
+    return this.userService.update(id, userDto);
+  }
 
   @Delete(":id")
   @ApiOperation({
