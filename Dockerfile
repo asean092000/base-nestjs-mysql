@@ -5,7 +5,7 @@ RUN npm install yarn
 RUN yarn add @nestjs/cli
 RUN yarn install
 COPY . .
-RUN yarn build 
+RUN yarn build
 
 FROM node:18.12.0-alpine3.15 as production
 ARG NODE_ENV=production

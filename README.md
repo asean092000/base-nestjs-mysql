@@ -16,6 +16,10 @@ cp -b .env.example .env
   docker-compose up prod<br/>
 - This will start it in development mode<br/>
 
+# Create user
+docker exec -it app_dev sh <br/>
+node dist/system/init/index.js <br/>
+
 # docker ssh into node container
 
 docker ps<br/>
