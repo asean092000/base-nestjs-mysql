@@ -1,4 +1,4 @@
-import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import {
   Body,
   Controller,
@@ -10,16 +10,21 @@ import {
   UsePipes,
   ValidationPipe,
   Patch,
-  UseGuards
+  UseGuards,
 } from "@nestjs/common";
 import { CreateUserDto, UpdateUserDto } from "./dto/index";
 import { User } from "./user.entity";
 import { UserService } from "../user/user.service";
 import { Response, ErrorResponse } from "src/system/interfaces";
-import { ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
-import { Roles } from '../auth/roles.decorator';
-import { RolesGuard } from '../auth/roles.guard';
-import { UserRoles } from './enums/user.enum';
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiBearerAuth,
+} from "@nestjs/swagger";
+import { Roles } from "../auth/roles.decorator";
+import { RolesGuard } from "../auth/roles.guard";
+import { UserRoles } from "./enums/user.enum";
 @Controller("/api/v1/user")
 @ApiTags("user")
 @ApiBearerAuth("Authorization")
@@ -40,7 +45,7 @@ export class UserController {
 
   @Get("all")
   @UseGuards(RolesGuard)
-  @Roles( UserRoles.SUPPER, UserRoles.ADMIN)
+  @Roles(UserRoles.SUPPER, UserRoles.ADMIN)
   @ApiOperation({
     description: "Get all user",
   })
@@ -62,17 +67,17 @@ export class UserController {
     return this.userService.getOneById(id);
   }
 
-  @Patch(':id')
+  @Patch(":id")
   @ApiOperation({
-    description: 'Update user',
+    description: "Update user",
   })
   @ApiOkResponse({
     type: Response<User>,
   })
   @UsePipes(ValidationPipe)
   async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() userDto: UpdateUserDto,
+    @Param("id", ParseIntPipe) id: number,
+    @Body() userDto: UpdateUserDto
   ): Promise<any> {
     return this.userService.update(id, userDto);
   }

@@ -12,6 +12,7 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>
   ) {}
+
   private readonly logger = new Logger(UserService.name);
 
   async getByUsername(username: string) {
@@ -92,32 +93,42 @@ export class UserService {
     }
   }
 
-  async update(
-    id: number,
-    userDto: UpdateUserDto,
-  ): Promise<any> {
+  async update(id: number, userDto: UpdateUserDto): Promise<any> {
     try {
       let foundUser = await this.userRepository.findOneBy({
-        id
+        id,
       });
 
       if (!foundUser) {
-        throw new ErrorResponse(STATUSCODE.COMMON_NOT_FOUND, `User with id: ${id} not found!`, ERROR.NOT_FOUND);
+        throw new ErrorResponse(
+          STATUSCODE.COMMON_NOT_FOUND,
+          `User with id: ${id} not found!`,
+          ERROR.NOT_FOUND
+        );
       }
 
       foundUser = {
         ...foundUser,
         ...userDto,
         updatedAt: new Date(),
-        hashPassword:null
+        hashPassword: null,
       };
       await this.userRepository.save(foundUser);
 
-      return new SuccessResponse(STATUSCODE.COMMON_UPDATE_SUCCESS, foundUser, MESSAGE.UPDATE_SUCCESS);
+      return new SuccessResponse(
+        STATUSCODE.COMMON_UPDATE_SUCCESS,
+        foundUser,
+        MESSAGE.UPDATE_SUCCESS
+      );
     } catch (error) {
-
-      this.logger.debug(`${UserService.name} is Logging error: ${JSON.stringify(error)}`);
-      return new ErrorResponse(STATUSCODE.COMMON_FAILED, error, ERROR.UPDATE_FAILED);
+      this.logger.debug(
+        `${UserService.name} is Logging error: ${JSON.stringify(error)}`
+      );
+      return new ErrorResponse(
+        STATUSCODE.COMMON_FAILED,
+        error,
+        ERROR.UPDATE_FAILED
+      );
     }
   }
 
