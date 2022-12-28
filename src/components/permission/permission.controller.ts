@@ -15,7 +15,7 @@ import {
 import { CreatePermissionDto, UpdatePermissionDto } from "./dto/index";
 import { Permission } from "./permission.entity";
 import { PermissionService } from "./permission.service";
-import { Response, ErrorResponse } from "src/core/interfaces";
+import { Response, ErrorResponse } from "src/system/interfaces";
 import {
   ApiOkResponse,
   ApiOperation,
@@ -25,8 +25,6 @@ import {
 @Controller("/api/v1/permission")
 @ApiTags("Permissions")
 @ApiBearerAuth("Authorization")
-// @ApiSecurity('bearer')
-@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class PermissionController {
   constructor(private permissionService: PermissionService) {}

@@ -1,14 +1,14 @@
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-import { createDocument } from "./core/swagger/swagger";
+import { createDocument } from "./system/swagger/swagger";
 import { SwaggerModule } from "@nestjs/swagger";
 import {
   BadRequestException,
   ValidationError,
   ValidationPipe,
 } from "@nestjs/common";
-import { AllExceptionFilter } from "./core/filters/exception.filter";
-import { TransformInterceptor } from "./core/interceptors/response.interceptor";
+import { AllExceptionFilter } from "./system/filters/exception.filter";
+import { TransformInterceptor } from "./system/interceptors/response.interceptor";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { join } from "path";
 import { json, urlencoded } from "express";
