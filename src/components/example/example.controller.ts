@@ -44,7 +44,7 @@ export class ExampleController {
 
   @Get("all")
   @ApiResponse({
-      status: "2000",
+      status: 2000,
       description: 'Get list video failed'
   })
   @ApiQuery({
