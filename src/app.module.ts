@@ -3,7 +3,7 @@ import { MainModule } from "./components/main.module";
 import { ConfigSystemModule } from "./system/config.system/config.module";
 import { LoggerModule } from "./system/middleware/logger.module";
 import { ConfigModule } from "@nestjs/config";
-import { typeOrmAsyncConfig } from './config.database/typeorm.config';
+import { typeOrmAsyncConfig } from "./system/config.system/typeorm.config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 @Module({
   imports: [
