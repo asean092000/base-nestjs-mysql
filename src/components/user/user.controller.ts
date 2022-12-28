@@ -19,6 +19,7 @@ import { Response, ErrorResponse } from "src/system/interfaces";
 import { ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { UserRoles } from './enums/user.enum';
 @Controller("/api/v1/user")
 @ApiTags("user")
 @ApiBearerAuth("Authorization")
@@ -39,7 +40,7 @@ export class UserController {
 
   @Get("all")
   @UseGuards(RolesGuard)
-  @Roles('admin')
+  @Roles( UserRoles.SUPPER, UserRoles.ADMIN)
   @ApiOperation({
     description: "Get all user",
   })
