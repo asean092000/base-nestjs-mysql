@@ -18,7 +18,7 @@ cp -b .env.example .env
 
 # Create user
 docker exec -it app_dev sh <br/>
-node dist/system/init/index.js <br/>
+node dist/init/index.js <br/>
 
 # docker ssh into node container
 
