@@ -9,7 +9,7 @@ import {
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
-import { LocalAuthGuard } from "./local-auth.guard";
+import { LocalAuthGuard } from "./local.stratery/local-auth.guard";
 import { JWTResult } from "src/system/interfaces";
 import { Response } from "src/system/interfaces";
 import { User } from "../user/user.entity";
