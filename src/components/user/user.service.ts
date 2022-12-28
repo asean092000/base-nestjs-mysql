@@ -25,7 +25,7 @@ export class UserService {
       throw new NotFoundException("User with this username does not exist");
     }
 
-    return { ...user };
+    return user;
   }
 
   async getAll(): Promise<any> {
@@ -100,7 +100,7 @@ export class UserService {
       });
 
       if (!foundUser) {
-        throw new ErrorResponse(
+        return new ErrorResponse(
           STATUSCODE.COMMON_NOT_FOUND,
           `User with id: ${id} not found!`,
           ERROR.NOT_FOUND
@@ -139,7 +139,7 @@ export class UserService {
       });
 
       if (!foundUser) {
-        throw new ErrorResponse(
+        return new ErrorResponse(
           STATUSCODE.COMMON_NOT_FOUND,
           `User with id: ${id} not found!`,
           ERROR.NOT_FOUND

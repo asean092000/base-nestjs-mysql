@@ -86,7 +86,7 @@ export class ExampleService {
       });
 
       if (!foundExample) {
-        throw new ErrorResponse(
+        return new ErrorResponse(
           STATUSCODE.COMMON_NOT_FOUND,
           `Example with id: ${id} not found!`,
           ERROR.NOT_FOUND
@@ -124,7 +124,7 @@ export class ExampleService {
       });
 
       if (!foundExample) {
-        throw new ErrorResponse(
+        return new ErrorResponse(
           STATUSCODE.COMMON_NOT_FOUND,
           `Example with id: ${id} not found!`,
           ERROR.NOT_FOUND
