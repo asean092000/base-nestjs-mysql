@@ -5,6 +5,7 @@ import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
 import { SuccessResponse, ErrorResponse } from "src/system/BaseResponse/index";
 import { STATUSCODE, MESSAGE, ERROR } from "src/system/constants";
+import { PaginationQueryDto } from "../common/dto";
 
 @Injectable()
 export class ExampleService {
@@ -15,7 +16,7 @@ export class ExampleService {
 
   private readonly logger = new Logger(ExampleService.name);
 
-  async getAll(): Promise<any> {
+  async getAll(paginationQueryDto: PaginationQueryDto): Promise<any> {
     try {
       const examples = await this.exampleRepository.find({});
 
