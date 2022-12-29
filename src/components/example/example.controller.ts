@@ -23,7 +23,7 @@ import {
   ApiQuery,
   ApiResponse
 } from "@nestjs/swagger";
-import { PaginationQueryDto } from "../common/dto";
+import { PaginationQueryDto } from "../../common/dto";
 
 @Controller("/api/v1/example")
 @ApiTags("Examples")
