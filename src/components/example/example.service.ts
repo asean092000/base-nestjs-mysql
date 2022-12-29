@@ -17,8 +17,13 @@ export class ExampleService {
   private readonly logger = new Logger(ExampleService.name);
 
   async getAll(paginationQueryDto: PaginationQueryDto): Promise<any> {
+    const {take, skip, order } = paginationQueryDto;
     try {
-      const examples = await this.exampleRepository.find({});
+      const examples = await this.exampleRepository.findAndCount({ 
+        order: { id: order },
+        take: take,
+        skip: skip
+      });
 
       return new SuccessResponse(
         STATUSCODE.COMMON_SUCCESS,
