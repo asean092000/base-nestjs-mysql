@@ -1,3 +1,3 @@
 export enum BcryptSalt {
-    SALT_ROUND = 10
+  SALT_ROUND = 10,
 }

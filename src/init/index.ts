@@ -18,6 +18,6 @@ AppDataSource.initialize()
     user.password = "super@9999ps";
     user.role = UserRoles.SUPPER;
     await AppDataSource.manager.save(user);
-    process.exit()
+    process.exit();
   })
   .catch((error) => console.log(error));

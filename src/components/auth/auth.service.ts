@@ -1,20 +1,20 @@
-import { LoginDto } from './dto/login.dto';
-import { UpdateUserDto } from './../user/dto/update.dto';
-import { BcryptSalt } from './../../system/constants/bcrypt.salt';
-import { UserInterface } from './../../system/interfaces/user.interface';
-import { JwtPayload } from './../../system/interfaces/jwt.payload.interface';
-import { JWTResult } from 'src/system/interfaces';
+import { LoginDto } from "./dto/login.dto";
+import { UpdateUserDto } from "./../user/dto/update.dto";
+import { BcryptSalt } from "./../../system/constants/bcrypt.salt";
+import { UserInterface } from "./../../system/interfaces/user.interface";
+import { JwtPayload } from "./../../system/interfaces/jwt.payload.interface";
+import { JWTResult } from "src/system/interfaces";
 import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
-  ForbiddenException
+  ForbiddenException,
 } from "@nestjs/common";
 import { UserService } from "../user/user.service";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { CreateUserDto } from "../user/dto";
-import appConfig from 'src/system/config.system/app.config';
+import appConfig from "src/system/config.system/app.config";
 @Injectable()
 export class AuthService {
   constructor(
@@ -33,7 +33,7 @@ export class AuthService {
     return user;
   }
 
-  async generateToken(user: UserInterface): Promise<JWTResult>{
+  async generateToken(user: UserInterface): Promise<JWTResult> {
     const jwtPayload: JwtPayload = {
       sub: user.id,
       name: user.name,
@@ -41,12 +41,12 @@ export class AuthService {
 
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(jwtPayload, {
-        secret:  appConfig().atSecret,
-        expiresIn: '15m',
+        secret: appConfig().atSecret,
+        expiresIn: "15m",
       }),
       this.jwtService.signAsync(jwtPayload, {
         secret: appConfig().rtSecret,
-        expiresIn: '7d',
+        expiresIn: "7d",
       }),
     ]);
 
@@ -74,10 +74,10 @@ export class AuthService {
   async refreshTokens(userId: number, rt: string): Promise<JWTResult> {
     const user = await this.userService.getOneById(userId);
 
-    if (!user || !user.hashedRt) throw new ForbiddenException('Access Denied');
+    if (!user || !user.hashedRt) throw new ForbiddenException("Access Denied");
 
-    const rtMatches = await bcrypt.compare(rt, user.rt)
-    if (!rtMatches) throw new ForbiddenException('Access Denied');
+    const rtMatches = await bcrypt.compare(rt, user.rt);
+    if (!rtMatches) throw new ForbiddenException("Access Denied");
 
     const tokens = await this.generateToken(user);
     await this.updateRtHash(user.id, tokens.refresh_token);
@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   async logout(userId: number): Promise<boolean> {
-    await this.updateRtHash(userId,'');
+    await this.updateRtHash(userId, "");
 
     return true;
   }
@@ -94,10 +94,13 @@ export class AuthService {
   async signinLocal(loginDto: LoginDto): Promise<JWTResult> {
     const user = await this.userService.getByUsername(loginDto.username);
 
-    if (!user) throw new ForbiddenException('Access Denied');
+    if (!user) throw new ForbiddenException("Access Denied");
 
-    const passwordMatches = await bcrypt.compare(loginDto.password, user.password);
-    if (!passwordMatches) throw new ForbiddenException('Access Denied');
+    const passwordMatches = await bcrypt.compare(
+      loginDto.password,
+      user.password
+    );
+    if (!passwordMatches) throw new ForbiddenException("Access Denied");
 
     const tokens = await this.generateToken(user);
     await this.updateRtHash(user.id, tokens.refresh_token);
