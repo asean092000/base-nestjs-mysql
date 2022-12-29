@@ -27,7 +27,7 @@ export class AuthController {
   @ApiOkResponse({
     type: Response<JWTResult>,
   })
-  async login(@Request() req, @Body() loginDto: LoginDto): Promise<any> {
+  async login(@Request() req, @Body() loginDto: LoginDto): Promise<JWTResult> {
     return this.authService.generateToken(req.user);
   }
 

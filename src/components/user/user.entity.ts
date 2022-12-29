@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { UserRoles } from "./enums/user.enum";
+import { BcryptSalt } from "src/system/constants/bcrypt.salt";
 import { REGEX, MESSAGES } from "../../system/config.system/app.utils";
 @Entity({ name: "users" })
 export class User {
@@ -25,6 +26,9 @@ export class User {
 
   @Column({ nullable: false })
   public password: string;
+
+  @Column({ nullable: true })
+  public hashedRt: string;
 
   @Column({ type: "enum", enum: UserRoles, default: UserRoles.MEMBER })
   role: UserRoles;
@@ -46,8 +50,7 @@ export class User {
 
   @BeforeInsert()
   async hashPassword() {
-    const saltRound = 10;
-    const salt = await bcrypt.genSalt(saltRound);
+    const salt = await bcrypt.genSalt(BcryptSalt.SALT_ROUND);
     this.password = await bcrypt.hash(this.password, salt);
   }
 }

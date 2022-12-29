@@ -1,4 +1,4 @@
-import { AppDataSource } from "./data-source";
+import { AppDataSource } from "./data.source";
 import { User } from "src/components/user/user.entity";
 import { Permission } from "src/components/permission/permission.entity";
 import { UserRoles } from "src/components/user/enums/user.enum";
