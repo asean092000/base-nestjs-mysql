@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumberString, IsOptional, IsString } from 'class-validator';
 import { Paging } from 'src/system/interfaces';
-import { Order } from "src/system/constants/order";
+import { Order } from "src/system/constants/index";
 
 export class PaginationQueryDto implements Paging {
     @IsOptional()
