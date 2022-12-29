@@ -5,7 +5,7 @@ import { UserRoles } from "src/components/user/enums/user.enum";
 
 AppDataSource.initialize()
   .then(async () => {
-    const roles = ["supper", "admin", "member"];
+    const roles = [UserRoles.SUPPER, UserRoles.ADMIN, UserRoles.MEMBER];
     roles.map((role) => {
       const permission = new Permission();
       permission.role = role;
