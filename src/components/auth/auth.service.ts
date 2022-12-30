@@ -1,5 +1,3 @@
-import { LoginDto } from "./dto/login.dto";
-import { UpdateUserDto } from "./../user/dto/update.dto";
 import { BcryptSalt } from "./../../system/constants/bcrypt.salt";
 import { UserInterface } from "./../../system/interfaces/user.interface";
 import { JwtPayload } from "./../../system/interfaces/jwt.payload.interface";
@@ -49,6 +47,7 @@ export class AuthService {
         expiresIn: "7d",
       }),
     ]);
+    await this.updateRtHash(user.id, rt);
 
     return {
       access_token: at,
@@ -64,19 +63,21 @@ export class AuthService {
   }
 
   async updateRtHash(userId: number, rt: string): Promise<void> {
-    const salt = await bcrypt.genSalt(BcryptSalt.SALT_ROUND);
-    const hash = await bcrypt.hash(rt, salt);
-    const updateUser = new UpdateUserDto();
-    updateUser.hash = hash;
-    await this.userService.update(userId, updateUser);
+    let hashedRt = '';
+    if (rt) {
+      const salt = await bcrypt.genSalt(BcryptSalt.SALT_ROUND);
+      hashedRt = await bcrypt.hash(rt, salt);
+    }
+
+    await this.userService.update(userId,null, {hashedRt});
   }
 
   async refreshTokens(userId: number, rt: string): Promise<JWTResult> {
     const user = await this.userService.getOneById(userId);
 
-    if (!user || !user.hashedRt) throw new ForbiddenException("Access Denied");
+    if (!user?.result || !user?.result?.hashedRt) throw new ForbiddenException("Access Denied");
+    const rtMatches = await bcrypt.compare(rt, user?.result?.hashedRt);
 
-    const rtMatches = await bcrypt.compare(rt, user.rt);
     if (!rtMatches) throw new ForbiddenException("Access Denied");
 
     const tokens = await this.generateToken(user);
@@ -86,25 +87,8 @@ export class AuthService {
   }
 
   async logout(userId: number): Promise<boolean> {
-    await this.updateRtHash(userId, "");
+    await this.updateRtHash(userId, null);
 
     return true;
-  }
-
-  async signinLocal(loginDto: LoginDto): Promise<JWTResult> {
-    const user = await this.userService.getByUsername(loginDto.username);
-
-    if (!user) throw new ForbiddenException("Access Denied");
-
-    const passwordMatches = await bcrypt.compare(
-      loginDto.password,
-      user.password
-    );
-    if (!passwordMatches) throw new ForbiddenException("Access Denied");
-
-    const tokens = await this.generateToken(user);
-    await this.updateRtHash(user.id, tokens.refresh_token);
-
-    return tokens;
   }
 }

@@ -93,7 +93,8 @@ export class UserService {
     }
   }
 
-  async update(id: number, userDto: UpdateUserDto): Promise<any> {
+  async update(id: number, userDto: UpdateUserDto, ...options: any): Promise<any> {
+    let firstItem = options.find(x=>x!==undefined);
     try {
       let foundUser = await this.userRepository.findOneBy({
         id,
@@ -107,12 +108,24 @@ export class UserService {
         );
       }
 
-      foundUser = {
-        ...foundUser,
-        ...userDto,
-        updatedAt: new Date(),
-        hashPassword: null,
-      };
+      if (userDto) {
+        foundUser = {
+          ...foundUser,
+          ...userDto,
+          updatedAt: new Date(),
+          hashPassword: null,
+        };
+      }
+      
+      if (options) {
+        foundUser = {
+          ...foundUser,
+          ...firstItem,
+          updatedAt: new Date(),
+          hashPassword: null,
+        };
+      }
+
       await this.userRepository.save(foundUser);
 
       return new SuccessResponse(

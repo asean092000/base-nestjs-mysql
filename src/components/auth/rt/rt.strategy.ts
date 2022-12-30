@@ -6,11 +6,11 @@ import { JwtPayload, JwtRtPayload } from "src/system/interfaces/index";
 import appConfig from "src/system/config.system/app.config";
 
 @Injectable()
-export class RtStrategy extends PassportStrategy(Strategy) {
+export class RtStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: appConfig().atSecret,
+      secretOrKey: appConfig().rtSecret,
       passReqToCallback: true,
     });
   }
@@ -22,7 +22,6 @@ export class RtStrategy extends PassportStrategy(Strategy) {
       .trim();
 
     if (!refreshToken) throw new ForbiddenException("Refresh token malformed");
-
     return {
       ...payload,
       refreshToken,

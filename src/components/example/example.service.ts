@@ -5,7 +5,7 @@ import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
 import { SuccessResponse, ErrorResponse } from "src/system/BaseResponse/index";
 import { STATUSCODE, MESSAGE, ERROR } from "src/system/constants";
-import { PaginationQueryDto } from "../../common/dto";
+import { PaginationQueryDto } from "../../common/common.dto";
 
 @Injectable()
 export class ExampleService {
