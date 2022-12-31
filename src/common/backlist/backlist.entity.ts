@@ -10,13 +10,16 @@ export class Backlist {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ unique: true, nullable: false })
+  @Column()
   public acToken: string;
 
-  @Column({
-    unique: true, nullable: false,
-  })
+  @Column()
   userId: number;
+
+  @Column({
+    default: 1,
+  })
+  status: number;
 
   @CreateDateColumn({
     type: "timestamp",
