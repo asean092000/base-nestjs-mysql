@@ -1,3 +1,4 @@
+import { BacklistGuard } from './../../common/backlist/backlist.guard';
 import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
 import {
   Body,
@@ -28,7 +29,7 @@ import { UserRoles } from "./enums/user.enum";
 @Controller("/api/v1/user")
 @ApiTags("user")
 @ApiBearerAuth("Authorization")
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, BacklistGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 

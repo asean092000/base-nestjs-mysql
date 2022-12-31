@@ -1,3 +1,4 @@
+import { GetCurrentToken } from '../../common/backlist/get-current-token.decorator';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { RtAuthGuard } from './rt/jwt-auth.guard';
 import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
@@ -45,8 +46,11 @@ export class AuthController {
   @ApiOperation({
     description: "To exit a user account in a computer system, so that one is not recognized until signing in again.",
   })
-  logout(@GetCurrentUserId() userID: number): Promise<boolean> {
-    return this.authService.logout(userID);
+  logout(
+    @GetCurrentUserId() userId: number,
+    @GetCurrentToken() acToken: string
+    ): Promise<boolean> {
+    return this.authService.logout(userId, acToken);
   }
 
   @Post('refresh')
