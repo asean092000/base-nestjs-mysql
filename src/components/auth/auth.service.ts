@@ -9,6 +9,7 @@ import {
   ForbiddenException,
 } from "@nestjs/common";
 import { UserService } from "../user/user.service";
+import { BacklistService } from "src/common/backlist/backlist.service";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { CreateUserDto } from "../user/dto";
@@ -17,7 +18,8 @@ import appConfig from "src/system/config.system/app.config";
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private backlistService: BacklistService,
   ) {}
 
   async validateUserCreds(username: string, password: string): Promise<any> {
@@ -86,9 +88,9 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(userId: number): Promise<boolean> {
+  async logout(userId: number, acToken:string): Promise<boolean> {
     await this.updateRtHash(userId, null);
-
+    await this.backlistService.create({userId, acToken});
     return true;
   }
 }
