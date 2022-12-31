@@ -1,5 +1,5 @@
-import { BacklistModule } from './../../common/backlist/backlist.module';
-import { RtStrategy } from './rt/rt.strategy';
+import { BacklistModule } from "./../../common/backlist/backlist.module";
+import { RtStrategy } from "./rt/rt.strategy";
 import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";

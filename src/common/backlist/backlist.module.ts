@@ -1,4 +1,4 @@
-import { BacklistGuard } from './backlist.guard';
+import { BacklistGuard } from "./backlist.guard";
 import { Module } from "@nestjs/common";
 import { BacklistService } from "./backlist.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
