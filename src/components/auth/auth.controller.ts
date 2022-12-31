@@ -1,4 +1,4 @@
-import { GetCurrentToken } from './../../common/decorators/get-current-token.decorator';
+import { GetCurrentToken } from '../../common/backlist/get-current-token.decorator';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { RtAuthGuard } from './rt/jwt-auth.guard';
 import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
