@@ -5,7 +5,7 @@ import { CreateExampleDto, UpdateExampleDto } from "./dto/index";
 import { Example } from "./example.entity";
 import { SuccessResponse, ErrorResponse } from "src/system/BaseResponse/index";
 import { STATUSCODE, MESSAGE, ERROR } from "src/system/constants";
-import { PaginationQueryDto } from "../../common/dto";
+import { PaginationQueryDto } from "../../common/common.dto";
 
 @Injectable()
 export class ExampleService {
@@ -17,12 +17,12 @@ export class ExampleService {
   private readonly logger = new Logger(ExampleService.name);
 
   async getAll(paginationQueryDto: PaginationQueryDto): Promise<any> {
-    const {take, skip, order } = paginationQueryDto;
+    const { take, skip, order } = paginationQueryDto;
     try {
-      const examples = await this.exampleRepository.findAndCount({ 
+      const examples = await this.exampleRepository.findAndCount({
         order: { id: order },
         take: take,
-        skip: skip
+        skip: skip,
       });
 
       return new SuccessResponse(

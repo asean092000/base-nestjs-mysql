@@ -1,3 +1,4 @@
 export default () => ({
-  appSecret: process.env.SECRET,
+  atSecret: process.env.AT_SECRET,
+  rtSecret: process.env.RT_SECRET,
 });

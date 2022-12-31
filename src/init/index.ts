@@ -1,11 +1,11 @@
-import { AppDataSource } from "./data-source";
+import { AppDataSource } from "./data.source";
 import { User } from "src/components/user/user.entity";
 import { Permission } from "src/components/permission/permission.entity";
 import { UserRoles } from "src/components/user/enums/user.enum";
 
 AppDataSource.initialize()
   .then(async () => {
-    const roles = ["supper", "admin", "member"];
+    const roles = [UserRoles.SUPPER, UserRoles.ADMIN, UserRoles.MEMBER];
     roles.map((role) => {
       const permission = new Permission();
       permission.role = role;
@@ -18,6 +18,6 @@ AppDataSource.initialize()
     user.password = "super@9999ps";
     user.role = UserRoles.SUPPER;
     await AppDataSource.manager.save(user);
-    process.exit()
+    process.exit();
   })
   .catch((error) => console.log(error));

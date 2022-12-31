@@ -5,6 +5,11 @@ export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  hash: string;
 }
 
 export default UpdateUserDto;
