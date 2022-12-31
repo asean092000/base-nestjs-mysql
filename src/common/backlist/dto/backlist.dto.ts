@@ -15,4 +15,11 @@ export class BacklistDto {
   @IsNotEmpty()
   @IsNumber()
   userId: number;
+
+  @ApiProperty({
+    description: "UserId of user",
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  status: number;
 }

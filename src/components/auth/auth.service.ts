@@ -1,3 +1,4 @@
+import { Length } from 'class-validator';
 import { BcryptSalt } from "./../../system/constants/bcrypt.salt";
 import { UserInterface } from "./../../system/interfaces/user.interface";
 import { JwtPayload } from "./../../system/interfaces/jwt.payload.interface";
@@ -50,11 +51,31 @@ export class AuthService {
       }),
     ]);
     await this.updateRtHash(user.id, rt);
+    await this.updateBacklist(user.id, at);
 
     return {
       access_token: at,
       refresh_token: rt,
     };
+  }
+
+  async updateBacklist (userId:number, acToken:string): Promise<void> {
+    const backlist = await this.backlistService.getByUserId(userId);
+    if (backlist.length > 0) {
+      for (let index in backlist) {
+        let foundBacklist = {
+          ...backlist[index],
+          status: 0
+        }
+        await this.backlistService.update(foundBacklist);
+      }
+    }
+
+    await this.backlistService.create({
+      userId,
+      acToken,
+      status: 1
+    });
   }
 
   async register(createDto: CreateUserDto) {
@@ -88,9 +109,9 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(userId: number, acToken:string): Promise<boolean> {
+  async logout(userId: number, acToken: string): Promise<boolean> {
     await this.updateRtHash(userId, null);
-    await this.backlistService.create({userId, acToken});
+    await this.backlistService.update({ userId, acToken, status: 0 });
     return true;
   }
 }
