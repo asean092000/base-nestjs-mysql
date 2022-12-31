@@ -14,7 +14,8 @@ export class Backlist {
   public acToken: string;
 
   @Column({
-    unique: true, nullable: false,
+    unique: true,
+    nullable: false,
   })
   userId: number;
 

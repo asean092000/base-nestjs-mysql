@@ -93,8 +93,12 @@ export class UserService {
     }
   }
 
-  async update(id: number, userDto: UpdateUserDto, ...options: any): Promise<any> {
-    let firstItem = options.find(x=>x!==undefined);
+  async update(
+    id: number,
+    userDto: UpdateUserDto,
+    ...options: any
+  ): Promise<any> {
+    let firstItem = options.find((x) => x !== undefined);
     try {
       let foundUser = await this.userRepository.findOneBy({
         id,
@@ -116,7 +120,7 @@ export class UserService {
           hashPassword: null,
         };
       }
-      
+
       if (options) {
         foundUser = {
           ...foundUser,

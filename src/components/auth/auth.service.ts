@@ -19,7 +19,7 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-    private backlistService: BacklistService,
+    private backlistService: BacklistService
   ) {}
 
   async validateUserCreds(username: string, password: string): Promise<any> {
@@ -65,19 +65,20 @@ export class AuthService {
   }
 
   async updateRtHash(userId: number, rt: string): Promise<void> {
-    let hashedRt = '';
+    let hashedRt = "";
     if (rt) {
       const salt = await bcrypt.genSalt(BcryptSalt.SALT_ROUND);
       hashedRt = await bcrypt.hash(rt, salt);
     }
 
-    await this.userService.update(userId,null, {hashedRt});
+    await this.userService.update(userId, null, { hashedRt });
   }
 
   async refreshTokens(userId: number, rt: string): Promise<JWTResult> {
     const user = await this.userService.getOneById(userId);
 
-    if (!user?.result || !user?.result?.hashedRt) throw new ForbiddenException("Access Denied");
+    if (!user?.result || !user?.result?.hashedRt)
+      throw new ForbiddenException("Access Denied");
     const rtMatches = await bcrypt.compare(rt, user?.result?.hashedRt);
 
     if (!rtMatches) throw new ForbiddenException("Access Denied");
@@ -88,9 +89,9 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(userId: number, acToken:string): Promise<boolean> {
+  async logout(userId: number, acToken: string): Promise<boolean> {
     await this.updateRtHash(userId, null);
-    await this.backlistService.create({userId, acToken});
+    await this.backlistService.create({ userId, acToken });
     return true;
   }
 }
