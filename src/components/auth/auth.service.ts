@@ -1,4 +1,4 @@
-import { Length } from 'class-validator';
+import { Length } from "class-validator";
 import { BcryptSalt } from "./../../system/constants/bcrypt.salt";
 import { UserInterface } from "./../../system/interfaces/user.interface";
 import { JwtPayload } from "./../../system/interfaces/jwt.payload.interface";
@@ -20,7 +20,7 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-    private backlistService: BacklistService,
+    private backlistService: BacklistService
   ) {}
 
   async validateUserCreds(username: string, password: string): Promise<any> {
@@ -59,14 +59,14 @@ export class AuthService {
     };
   }
 
-  async updateBacklist (userId:number, acToken:string): Promise<void> {
+  async updateBacklist(userId: number, acToken: string): Promise<void> {
     const backlist = await this.backlistService.getByUserId(userId);
     if (backlist.length > 0) {
       for (let index in backlist) {
         let foundBacklist = {
           ...backlist[index],
-          status: 0
-        }
+          status: 0,
+        };
         await this.backlistService.update(foundBacklist);
       }
     }
@@ -74,7 +74,7 @@ export class AuthService {
     await this.backlistService.create({
       userId,
       acToken,
-      status: 1
+      status: 1,
     });
   }
 
@@ -86,19 +86,20 @@ export class AuthService {
   }
 
   async updateRtHash(userId: number, rt: string): Promise<void> {
-    let hashedRt = '';
+    let hashedRt = "";
     if (rt) {
       const salt = await bcrypt.genSalt(BcryptSalt.SALT_ROUND);
       hashedRt = await bcrypt.hash(rt, salt);
     }
 
-    await this.userService.update(userId,null, {hashedRt});
+    await this.userService.update(userId, null, { hashedRt });
   }
 
   async refreshTokens(userId: number, rt: string): Promise<JWTResult> {
     const user = await this.userService.getOneById(userId);
 
-    if (!user?.result || !user?.result?.hashedRt) throw new ForbiddenException("Access Denied");
+    if (!user?.result || !user?.result?.hashedRt)
+      throw new ForbiddenException("Access Denied");
     const rtMatches = await bcrypt.compare(rt, user?.result?.hashedRt);
 
     if (!rtMatches) throw new ForbiddenException("Access Denied");
@@ -112,6 +113,7 @@ export class AuthService {
   async logout(userId: number, acToken: string): Promise<boolean> {
     await this.updateRtHash(userId, null);
     await this.backlistService.update({ userId, acToken, status: 0 });
+
     return true;
   }
 }

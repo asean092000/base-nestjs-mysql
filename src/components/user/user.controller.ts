@@ -1,4 +1,4 @@
-import { BacklistGuard } from './../../common/backlist/backlist.guard';
+import { BacklistGuard } from "./../../common/backlist/backlist.guard";
 import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
 import {
   Body,
