@@ -104,8 +104,7 @@ export class AuthService {
 
     if (!rtMatches) throw new ForbiddenException("Access Denied");
 
-    const tokens = await this.generateToken(user);
-    await this.updateRtHash(user.id, tokens.refresh_token);
+    const tokens = await this.generateToken(user.result);
 
     return tokens;
   }
