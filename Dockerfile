@@ -3,6 +3,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install yarn
 RUN yarn add @nestjs/cli
+RUN yarn add @types/cache-manager-ioredis
 RUN yarn install
 COPY . .
 RUN yarn build
