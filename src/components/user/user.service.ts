@@ -51,7 +51,7 @@ export class UserService {
     }
   }
 
-  async getOneById(id: number): Promise<any> {
+  async getOneById(id: number = 0): Promise<any> {
     try {
       const user = await this.userRepository.findOneBy({ id });
 

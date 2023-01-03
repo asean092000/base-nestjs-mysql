@@ -13,7 +13,7 @@ services:
       - 3000:3000
     depends_on:
       - db
-      - redis
+      # - redis
     networks:
       - nesjs-network
     volumes:
@@ -32,7 +32,7 @@ services:
       - 3000:3000
     depends_on:
       - db
-      - redis
+      # - redis
     networks:
       - nesjs-network
     volumes:
@@ -54,13 +54,13 @@ services:
     volumes:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-  redis:
-    image: 'redis:alpine'
-    container_name: redis
-    ports:
-        - '6379:6379'
-    networks:
-        - nesjs-network
+  # redis:
+  #   image: 'redis:alpine'
+  #   container_name: redis
+  #   ports:
+  #       - '6379:6379'
+  #   networks:
+  #       - nesjs-network
 networks:
   nesjs-network:
 volumes:
